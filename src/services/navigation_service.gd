@@ -1,11 +1,13 @@
 extends Node
 
+class_name NavigationService
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func navigate_to_game(this):
+	this.get_tree().change_scene_to_file(Globals.game_scene)
 
+func navigate_to_options(this):
+	this.get_tree().change_scene_to_file(Globals.options_scene)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func navigate_to_menu(this):
+	this.get_tree().change_scene_to_file(Globals.menu_scene)
+

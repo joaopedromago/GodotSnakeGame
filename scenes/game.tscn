@@ -1,8 +1,37 @@
-[gd_scene format=3 uid="uid://nsir2w67s0rq"]
+[gd_scene load_steps=2 format=3 uid="uid://nsir2w67s0rq"]
+
+[ext_resource type="Script" path="res://src/scenes/game.gd" id="1_ygaeq"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_ygaeq")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 48.0
+
+[node name="Return" type="Button" parent="CanvasLayer/Panel"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 69.0
+offset_bottom = 39.0
+text = "Return"
+
+[node name="Score" type="Label" parent="CanvasLayer/Panel"]
+offset_left = 432.0
+offset_top = 8.0
+offset_right = 639.0
+offset_bottom = 31.0
+text = "Snake current size: %size%"
+
+[node name="Score" type="Label" parent="CanvasLayer/Panel/Score"]
+offset_left = 240.0
+offset_right = 447.0
 offset_bottom = 23.0
-text = "GAME"
+text = "Personal record: %size%"
+
+[connection signal="pressed" from="CanvasLayer/Panel/Return" to="." method="_on_return_pressed"]

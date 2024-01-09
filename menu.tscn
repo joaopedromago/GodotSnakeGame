@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cs12lbj8u78mv"]
+[gd_scene load_steps=2 format=3 uid="uid://cs12lbj8u78mv"]
+
+[ext_resource type="Script" path="res://src/scenes/menu.gd" id="1_xbpid"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -7,22 +9,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xbpid")
 
-[node name="Start" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="Snake Game" type="Label" parent="."]
+layout_mode = 2
+offset_left = 437.0
+offset_top = 72.0
+offset_right = 870.0
+offset_bottom = 171.0
+theme_override_font_sizes/font_size = 72
+text = "Snake Game"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.110243
+anchor_bottom = 0.108025
+offset_right = 1152.0
+offset_bottom = 648.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="StartContainer" type="MarginContainer" parent="CenterContainer/Buttons"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="CenterContainer/Buttons/StartContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Start Game"
 
-[node name="Options" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Buttons"]
+layout_mode = 2
+
+[node name="OptionsContainer" type="MarginContainer" parent="CenterContainer/Buttons"]
+layout_mode = 2
+
+[node name="Options" type="Button" parent="CenterContainer/Buttons/OptionsContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Options"
 
-[node name="Exit" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Buttons"]
+layout_mode = 2
+
+[node name="ExitContainer" type="MarginContainer" parent="CenterContainer/Buttons"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="CenterContainer/Buttons/ExitContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/Buttons/ExitContainer/Exit" to="." method="_on_exit_pressed"]

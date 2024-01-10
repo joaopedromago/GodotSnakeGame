@@ -10,4 +10,7 @@ func navigate_to_options(this):
 
 func navigate_to_menu(this):
 	this.get_tree().change_scene_to_file(Globals.menu_scene)
+	
+func navigate_to_death(this):
+	this.get_tree().change_scene_to_file(Globals.death_scene)
 

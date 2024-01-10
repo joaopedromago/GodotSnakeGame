@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnb4br0fl2cyc"]
+
+[ext_resource type="Script" path="res://src/scenes/death.gd" id="1_w6xdy"]
+
+[node name="Death" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w6xdy")
+
+[node name="DeathInformation" type="Label" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 152.0
+offset_right = 1162.0
+offset_bottom = 480.0
+theme_override_font_sizes/font_size = 240
+text = "You Died"
+
+[node name="Return" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 69.0
+offset_bottom = 39.0
+text = "Return"
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 464.0
+offset_right = 975.0
+offset_bottom = 643.0
+theme_override_font_sizes/font_size = 64
+text = "Score: %score%
+Personal best: %bestScore%"
+
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]

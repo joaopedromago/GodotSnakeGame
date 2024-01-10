@@ -45,14 +45,14 @@ offset_left = 432.0
 offset_top = 8.0
 offset_right = 639.0
 offset_bottom = 31.0
-text = "Snake current size: %size%"
+text = "Score: %score%"
 
-[node name="Score" type="Label" parent="CanvasLayer/Panel/Score"]
-layout_mode = 0
-offset_left = 240.0
-offset_right = 447.0
-offset_bottom = 23.0
-text = "Personal record: %size%"
+[node name="BestScore" type="Label" parent="CanvasLayer/Panel"]
+offset_left = 672.0
+offset_top = 8.0
+offset_right = 889.0
+offset_bottom = 31.0
+text = "Personal best: %bestScore%"
 
 [node name="Field" type="Node2D" parent="."]
 
@@ -66,6 +66,7 @@ layer_0/tile_data = PackedInt32Array(65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 26
 [node name="Body 1" type="Area2D" parent="Field/SnakeLimbs"]
 position = Vector2(608, 480)
 metadata/is_new = false
+metadata/death_event = true
 
 [node name="Shape" type="CollisionShape2D" parent="Field/SnakeLimbs/Body 1"]
 shape = SubResource("RectangleShape2D_31ufu")
@@ -78,6 +79,7 @@ texture = ExtResource("5_00oql")
 [node name="Body 2" type="Area2D" parent="Field/SnakeLimbs"]
 position = Vector2(608, 544)
 metadata/is_new = false
+metadata/death_event = true
 
 [node name="Shape" type="CollisionShape2D" parent="Field/SnakeLimbs/Body 2"]
 shape = SubResource("RectangleShape2D_31ufu")
@@ -91,6 +93,7 @@ texture = ExtResource("5_00oql")
 position = Vector2(608, 608)
 metadata/is_new = false
 metadata/wait = false
+metadata/death_event = true
 
 [node name="Shape" type="CollisionShape2D" parent="Field/SnakeLimbs/Tail"]
 shape = SubResource("RectangleShape2D_31ufu")
@@ -130,4 +133,5 @@ offset_right = 1280.0
 offset_bottom = 720.0
 
 [connection signal="pressed" from="CanvasLayer/Panel/Return" to="." method="_on_return_pressed"]
+[connection signal="area_entered" from="Field/Snake/SnakeArea" to="." method="_on_snake_area_entered"]
 [connection signal="area_entered" from="Field/Food" to="." method="_on_food_area_entered"]

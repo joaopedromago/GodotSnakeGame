@@ -17,6 +17,8 @@ func get_random_available_grid_location():
 	var randomX = rng.randf_range(0, grid_size.x -1)
 	var randomY = rng.randf_range(1, grid_size.y)
 	
+	# TODO: verify if there's anything inside the food (talvez isso fique na logica de física do game)
+	
 	return Vector2(randomX, randomY)
 
 func generate_food():

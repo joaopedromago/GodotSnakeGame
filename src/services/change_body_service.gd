@@ -13,6 +13,7 @@ func _generate_limb(number: int):
 	var area: Area2D = Area2D.new();
 	area.name = "Body %s" % number
 	area.set_meta("is_new", true)
+	area.set_meta("death_event", true)
 	
 	var collision: CollisionShape2D = CollisionShape2D.new()
 	collision.name = "Shape"

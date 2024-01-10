@@ -1,9 +1,7 @@
 extends CharacterBody2D
 
 const MoveBodyService = preload("res://src/services/move_body_service.gd")
-var move_body = MoveBodyService.new(self)
 
-const SPEED: int = 10
 var direction: Vector2 = Vector2.UP
 var tile_when_moving: Vector2
 
@@ -11,8 +9,10 @@ var timer: int = 0
 
 @onready var grid: TileMap = $"../Grid"
 
+var move_body: MoveBodyService
+
 func _ready():
-	# define body
+	move_body = MoveBodyService.new(self)
 	pass
 
 func _process(delta: float):
@@ -26,8 +26,7 @@ func _process(delta: float):
 		move_down()
 
 	timer += 1
-
-	if fmod(timer, SPEED) == 0:
+	if fmod(timer, Globals.speed) == 0:
 		perform_movement()
 
 

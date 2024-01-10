@@ -36,16 +36,24 @@ func rotate_to_direction(direction: Vector2, sprite: Sprite2D):
 	sprite.rotate(angle)
 	
 func perform_movement(grid: TileMap, current_tile: Vector2, target_tile: Vector2):
-	var previous_position = current_tile
+	var move_to = current_tile
 	
 	var limbs = snake.get_parent().get_child(1).get_children()
 	
 	for limb in limbs:
-		if limb.name != "Head":
-			var previous_tile = grid.local_to_map(limb.global_position)
-			limb.global_position = grid.map_to_local(current_tile)
-			if limb.name == "Tail":
-				var direction = Vector2(current_tile.x - previous_tile.x, current_tile.y - previous_tile.y)
-				rotate_tail_to_direction(direction, limb)
-			current_tile = previous_tile
+		var is_new = limb.get_meta("is_new", false)
+		if is_new:
+			limb.set_meta("is_new", false)
+			continue
+			
+		if limb.has_meta("wait") and limb.get_meta("wait") == true:
+			limb.set_meta("wait", false)
+			continue
+		var previous_tile = grid.local_to_map(limb.global_position)
+		
+		limb.global_position = grid.map_to_local(move_to)
+		if limb.name == "Tail":
+			var direction = Vector2(move_to.x - previous_tile.x, move_to.y - previous_tile.y)
+			rotate_tail_to_direction(direction, limb)
+		move_to = previous_tile
 	snake.global_position = grid.map_to_local(target_tile)

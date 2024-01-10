@@ -10,3 +10,4 @@ const best_score_text = "Personal Best: %score%"
 var speed: int = 10
 var score: int = 0
 var best_score: int = 0
+var die_on_wall_hit: bool = false

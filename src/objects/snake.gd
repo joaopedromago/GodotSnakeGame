@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const MoveBodyService = preload("res://src/services/move_body_service.gd")
+const NavigationService = preload("res://src/services/navigation_service.gd")
 
 var direction: Vector2 = Vector2.UP
 var tile_when_moving: Vector2
@@ -10,19 +11,21 @@ var timer: int = 0
 @onready var grid: TileMap = $"../Grid"
 
 var move_body: MoveBodyService
+var navigation_service: NavigationService
 
 func _ready():
 	move_body = MoveBodyService.new(self)
-	pass
+	navigation_service = NavigationService.new()
 
 func _process(delta: float):
-	if Input.is_action_just_pressed("ui_left") and is_moving_vertical() and can_move():
+	var current_tile = grid.local_to_map(global_position)
+	if Input.is_action_just_pressed("ui_left") and is_moving_vertical() and can_move(current_tile):
 		move_left()
-	elif Input.is_action_just_pressed("ui_right") and is_moving_vertical() and can_move():
+	elif Input.is_action_just_pressed("ui_right") and is_moving_vertical() and can_move(current_tile):
 		move_right()
-	elif Input.is_action_just_pressed("ui_up") and is_moving_horizontal() and can_move():
+	elif Input.is_action_just_pressed("ui_up") and is_moving_horizontal() and can_move(current_tile):
 		move_up()
-	elif Input.is_action_just_pressed("ui_down") and is_moving_horizontal() and can_move():
+	elif Input.is_action_just_pressed("ui_down") and is_moving_horizontal() and can_move(current_tile):
 		move_down()
 
 	timer += 1
@@ -36,8 +39,6 @@ func perform_movement():
 		current_tile.x + direction.x,
 		current_tile.y + direction.y,
 	)
-
-	# TODO: validate snake hit
 
 	var tile_data: TileData = grid.get_cell_tile_data(0, target_tile)
 	if not tile_data:
@@ -74,16 +75,18 @@ func move_made():
 	tile_when_moving = grid.local_to_map(global_position)
 
 
-func can_move():
-	var current_tile = grid.local_to_map(global_position)
+func can_move(current_tile: Vector2):
 	return current_tile.x != tile_when_moving.x or current_tile.y != tile_when_moving.y
 
 
 func wall_collision(target: Vector2):
+	if Globals.die_on_wall_hit:
+		navigation_service.navigate_to_death(self)
+		return
+	
 	var grid_size = grid.get_used_rect().size
 	var current_tile: Vector2i = grid.local_to_map(global_position)
 
-	# TODO: validate death
 	
 	var inverse_tile_x: int = target.x
 	var inverse_tile_y: int = target.y

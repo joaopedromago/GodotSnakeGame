@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cl685uxod64uj"]
+[gd_scene load_steps=2 format=3 uid="uid://cl685uxod64uj"]
+
+[ext_resource type="Script" path="res://src/scenes/options.gd" id="1_pei0f"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -7,20 +9,82 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pei0f")
+
+[node name="Menu" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 104.0
+
+[node name="Panel" type="Panel" parent="Menu"]
+layout_mode = 0
+offset_right = 1232.0
+offset_bottom = 632.0
+
+[node name="SnakeSpeed" type="Label" parent="Menu/Panel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 56.0
+offset_right = 226.0
+offset_bottom = 79.0
+text = "Snake speed: (fast - slow)"
+
+[node name="SpeedInfo" type="Label" parent="Menu/Panel"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 56.0
+offset_right = 296.0
+offset_bottom = 79.0
+text = "10"
+
+[node name="SnakeSpeedSlider" type="HSlider" parent="Menu/Panel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 88.0
+offset_right = 928.0
+offset_bottom = 104.0
+min_value = 1.0
+value = 10.0
+
+[node name="DieOnWallHit" type="Label" parent="Menu/Panel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 136.0
+offset_right = 226.0
+offset_bottom = 159.0
+text = "Die on wall hit:"
+
+[node name="DieOnWallHitCheck" type="CheckBox" parent="Menu/Panel"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 136.0
+offset_right = 184.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 1
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 513.0
-offset_top = 217.0
-offset_right = 782.0
-offset_bottom = 448.0
-text = "OPTIONS
-
+offset_left = 976.0
+offset_top = 456.0
+offset_right = 1245.0
+offset_bottom = 687.0
+text = "TODO:
 1 - Mudar tamanho inicial da cobra
 2 - Mudar tamanho da tela
-3 - Definir evento dos cantos
-4 - Definir velocidade cobra
-5 - Definir cor da tela
-6 - Definir cor do fundo
-7 - Voltar
+3 - Definir cor da tela
+4 - Definir cor do fundo
 "
+
+[node name="Return" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 69.0
+offset_bottom = 39.0
+text = "Return"
+
+[connection signal="value_changed" from="Menu/Panel/SnakeSpeedSlider" to="." method="_on_snake_speed_slider_value_changed"]
+[connection signal="toggled" from="Menu/Panel/DieOnWallHitCheck" to="." method="_on_die_on_wall_hit_check_toggled"]
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
